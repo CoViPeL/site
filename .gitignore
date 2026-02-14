@@ -1,0 +1,45 @@
+# sanity build output
+studio/public/
+
+# next.js build output
+.next
+dist/
+build/
+
+# vercel config
+.vercel
+
+# dotenv environment variables files
+.env
+.env.local
+.env.development
+.env.production.local
+
+# Dependency directories
+node_modules/
+
+# NPM lock files (using yarn instead)
+package-lock.json
+
+# Debug logs
+lerna-debug.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+.env.*.local
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.eslintcache
+
+# Build cache
+.cache/
+.turbo/
