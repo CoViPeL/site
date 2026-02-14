@@ -1,6 +1,5 @@
 {
   "packages": [
-    "studio",
     "web"
   ],
   "useNx": true,
