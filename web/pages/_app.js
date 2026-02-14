@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { useEffect } from 'react';
 import TagManager from 'react-gtm-module';
 import { Auth0Provider } from '@auth0/auth0-react';
+import { Analytics } from '@vercel/analytics/react';
 
 import '../styles/fonts.css';
 import '../styles/globals.css';
@@ -33,6 +34,7 @@ const MyApp = ({ Component, pageProps }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
       </Head>
       <Component {...pageProps} />
+      <Analytics />
     </Auth0Provider>
   );
 };
