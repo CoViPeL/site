@@ -46,10 +46,17 @@ module.exports = {
     }],
     'no-underscore-dangle': 'off', // Sanity IDs use this, e.g. doc._id
     'no-unused-vars': ['error', { args: 'none' }],
+    'import/no-unresolved': ['error', { ignore: ['^@vercel/analytics'] }],
   },
   settings: {
     react: {
       version: 'detect',
+    },
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        paths: ['node_modules/@vercel/analytics/dist'],
+      },
     },
   },
 };

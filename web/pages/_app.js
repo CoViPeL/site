@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { useEffect } from 'react';
 import TagManager from 'react-gtm-module';
 import { Auth0Provider } from '@auth0/auth0-react';
-import { Analytics } from '@vercel/analytics/next';
+import { Analytics } from '@vercel/analytics/react';
 
 import '../styles/fonts.css';
 import '../styles/globals.css';
