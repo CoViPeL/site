@@ -1,15 +1,11 @@
 import Head from 'next/head';
 import { useEffect } from 'react';
 import TagManager from 'react-gtm-module';
-import { Auth0Provider } from '@auth0/auth0-react';
-import { Analytics } from '@vercel/analytics/next';
+import { Analytics } from '@vercel/analytics/react';
 
 import '../styles/fonts.css';
 import '../styles/globals.css';
 import '../styles/news.css';
-
-const authDomain = process.env.NEXT_PUBLIC_AUTH_DOMAIN;
-const authClient = process.env.NEXT_PUBLIC_AUTH_CLIENT;
 
 const MyApp = ({ Component, pageProps }) => {
   useEffect(() => {
@@ -17,14 +13,7 @@ const MyApp = ({ Component, pageProps }) => {
   }, []);
 
   return (
-    <Auth0Provider
-      domain={authDomain}
-      clientId={authClient}
-      authorizationParams={{
-        redirect_uri: typeof window !== 'undefined' && `${window.location.origin}/callback`,
-        scope: '', // auth0 uses the union of scopes provided here and in login request
-      }}
-    >
+    <>
       <Head>
         <title>CoViPeL - Computational Vision and Perception Lab</title>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -35,7 +24,7 @@ const MyApp = ({ Component, pageProps }) => {
       </Head>
       <Component {...pageProps} />
       <Analytics />
-    </Auth0Provider>
+    </>
   );
 };
 

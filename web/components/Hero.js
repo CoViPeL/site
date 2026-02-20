@@ -47,7 +47,7 @@ const Hero = ({ hero }) => {
     const initAnimation = async () => {
       const lottie = (await import('lottie-web')).default;
       if (!isMounted) return;
-      
+
       const anim = lottie.loadAnimation({
         container: illustrationContainer.current,
         renderer: 'svg',
@@ -242,7 +242,7 @@ const Hero = ({ hero }) => {
                     {roleDescription}
                   </p>
                   <Link href={`#${sectionId}`} scroll={false} passHref>
-                    <button type="button" className="justify-self-start underline">Read more</button>
+                    <a className="justify-self-start underline">Read more</a>
                   </Link>
                 </li>
               ))}

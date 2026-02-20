@@ -7,9 +7,9 @@ export const Custom404 = () => (
         Sorry, we couldn&apos;t find that page.
       </h2>
       <Link href="/" passHref>
-        <button type="button" className="underline">
+        <a className="underline">
           Back home
-        </button>
+        </a>
       </Link>
     </div>
   </div>
