@@ -94,7 +94,8 @@ const Footer = ({ siteSettings }) => {
           background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
         }
 
-      `}</style>
+      `}
+      </style>
 
       {/* Animated gradient accent */}
       <div className="footer-gradient-bar" />

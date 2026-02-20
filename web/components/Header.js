@@ -2,7 +2,9 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState, useEffect, useCallback, useRef } from 'react';
+import {
+  useState, useEffect, useCallback, useRef, 
+} from 'react';
 import { useRouter } from 'next/router';
 
 import covipelLogo from '../public/images/covipel_logo.svg';
@@ -21,10 +23,18 @@ const searchItems = [
   { label: 'Events', href: '#events', category: 'Sections' },
   { label: 'Blog', href: '#blog', category: 'Sections' },
   { label: 'FAQ', href: '#faq', category: 'Sections' },
-  { label: 'Insights', href: '/insights', category: 'Pages', isRoute: true },
-  { label: 'GitHub - Open Source', href: 'https://github.com/CoViPeL', category: 'Community', external: true },
-  { label: 'Slack Community', href: 'https://slack.covipel.dev', category: 'Community', external: true },
-  { label: 'Hugging Face', href: 'https://hf.covipel.dev', category: 'Community', external: true },
+  {
+    label: 'Insights', href: '/insights', category: 'Pages', isRoute: true, 
+  },
+  {
+    label: 'GitHub - Open Source', href: 'https://github.com/CoViPeL', category: 'Community', external: true, 
+  },
+  {
+    label: 'Slack Community', href: 'https://slack.covipel.dev', category: 'Community', external: true, 
+  },
+  {
+    label: 'Hugging Face', href: 'https://hf.covipel.dev', category: 'Community', external: true, 
+  },
   { label: 'Privacy Policy', href: '#privacy', category: 'Legal' },
   { label: 'Policies', href: '#policies', category: 'Legal' },
 ];
@@ -99,10 +109,8 @@ const Header = ({
   }, []);
 
   const filteredItems = searchQuery.trim()
-    ? searchItems.filter((item) =>
-      item.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.category.toLowerCase().includes(searchQuery.toLowerCase())
-    )
+    ? searchItems.filter((item) => item.label.toLowerCase().includes(searchQuery.toLowerCase())
+      || item.category.toLowerCase().includes(searchQuery.toLowerCase()))
     : searchItems;
 
   useEffect(() => { setActiveIndex(0); }, [searchQuery]);
@@ -348,7 +356,8 @@ const Header = ({
         .mobile-cta:hover { background: #b8e0c3; }
 
         .header-spacer { height: 64px; }
-      `}</style>
+      `}
+      </style>
 
       <header className={`header-wrap${scrolled ? ' scrolled' : ''}`}>
         <div className="header-inner">
@@ -363,17 +372,20 @@ const Header = ({
 
           {/* Desktop Navigation */}
           <nav className="desktop-nav" aria-label="Main navigation">
-            {navLinks.map((link) =>
-              link.isRoute ? (
-                <Link key={link.href} href={link.href} passHref>
-                  <a className="nav-pill">{link.label}</a>
-                </Link>
-              ) : (
+            {navLinks.map((link) => {
+              if (link.isRoute) {
+                return (
+                  <Link key={link.href} href={link.href} passHref>
+                    <a className="nav-pill">{link.label}</a>
+                  </Link>
+                );
+              }
+              return (
                 <a key={link.href} href={link.href} className="nav-pill">
                   {link.label}
                 </a>
-              )
-            )}
+              );
+            })}
           </nav>
 
           {/* Right actions: Get Involved + Search circle */}
@@ -421,13 +433,22 @@ const Header = ({
                       <div key={category}>
                         <div className="search-category">{category}</div>
                         {items.map((item) => {
-                          const idx = flatIndex++;
+                          const idx = flatIndex;
+                          flatIndex += 1;
                           return (
                             <div
                               key={item.href}
                               className={`search-item${idx === activeIndex ? ' active' : ''}`}
                               onClick={() => navigateTo(item)}
                               onMouseEnter={() => setActiveIndex(idx)}
+                              onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                  e.preventDefault();
+                                  navigateTo(item);
+                                }
+                              }}
+                              role="button"
+                              tabIndex={0}
                             >
                               <div className="search-item-icon">
                                 {item.external ? (
@@ -473,24 +494,40 @@ const Header = ({
 
       {/* Mobile navigation overlay */}
       <div className={`mobile-overlay${mobileOpen ? ' open' : ''}`}>
-        {navLinks.map((link) =>
-          link.isRoute ? (
-            <Link key={link.href} href={link.href} passHref>
-              <a className="mobile-nav-link" onClick={() => setMobileOpen(false)}>
-                {link.label}
-              </a>
-            </Link>
-          ) : (
+        {navLinks.map((link) => {
+          if (link.isRoute) {
+            return (
+              <Link key={link.href} href={link.href} passHref>
+                <a
+                  className="mobile-nav-link"
+                  onClick={() => setMobileOpen(false)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') setMobileOpen(false);
+                  }}
+                  role="button"
+                  tabIndex={0}
+                >
+                  {link.label}
+                </a>
+              </Link>
+            );
+          }
+          return (
             <a
               key={link.href}
               href={link.href}
               className="mobile-nav-link"
               onClick={() => setMobileOpen(false)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') setMobileOpen(false);
+              }}
+              role="button"
+              tabIndex={0}
             >
               {link.label}
             </a>
-          )
-        )}
+          );
+        })}
         <button className="mobile-cta" onClick={() => setMobileOpen(false)}>
           Get Involved
         </button>
